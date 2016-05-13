@@ -1,0 +1,24 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "standard"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "script"
+  },
+  "rules": {
+    "block-scoped-var": "error",
+    "consistent-this": ["error", "self"],
+    "func-style": ["error", "declaration"],
+    "max-nested-callbacks": ["error", 4],
+    "no-else-return": "error",
+    "no-eq-null": "error",
+    "no-nested-ternary": "error",
+    "no-sync": "warn",
+    "no-undefined": "error",
+    "no-warning-comments": "warn",
+    "strict": "error",
+    "valid-jsdoc": "error"
+  }
+}

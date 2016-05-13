@@ -1,0 +1,48 @@
+{
+  "name": "mock-pg-with-testdouble",
+  "version": "1.0.0",
+  "description": "Sample express app using testdouble to mock postgres queries",
+  "main": "code/server.js",
+  "scripts": {
+    "test": "tape 'code/**/*.tape.js'",
+    "coverage": "istanbul cover tape 'code/**/*.tape.js'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/focusaurus/mock-pg-with-testdouble.git"
+  },
+  "keywords": [
+    "unit",
+    "test",
+    "mock",
+    "sample",
+    "testdouble",
+    "pg-query-bluebird"
+  ],
+  "author": "Peter Lyons <pete@peterlyons.com> (http://peterlyons.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/focusaurus/mock-pg-with-testdouble/issues"
+  },
+  "homepage": "https://github.com/focusaurus/mock-pg-with-testdouble#readme",
+  "dependencies": {
+    "bluebird": "3.3.5",
+    "express": "4.13.4",
+    "joi": "8.1.0",
+    "lodash": "4.12.0",
+    "pg": "4.5.5",
+    "pg-query-bluebird": "0.3.0",
+    "sql-template-strings": "2.0.2"
+  },
+  "devDependencies": {
+    "eslint": "2.9.0",
+    "eslint-config-standard": "5.3.1",
+    "eslint-plugin-promise": "1.1.0",
+    "eslint-plugin-standard": "1.3.2",
+    "istanbul": "0.4.3",
+    "supertest": "1.2.0",
+    "tape": "4.5.1",
+    "tape-catch": "1.0.5",
+    "testdouble": "1.4.2"
+  }
+}
