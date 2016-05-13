@@ -1,5 +1,6 @@
 'use strict'
 
+const config = require('./config')
 const express = require('express')
 const pg = require('./pg')
 
@@ -21,6 +22,10 @@ app.use((error, req, res, next) => {
 })
 
 if (require.main === module) {
-  app.listen(parseInt(process.env.PORT, 10))
+  config.validate()
+  const server = app.listen(config.PORT, () => {
+    console.log('http://localhost:' + server.address().port)
+  })
 }
+
 module.exports = app

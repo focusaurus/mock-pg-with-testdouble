@@ -4,6 +4,8 @@
   "description": "Sample express app using testdouble to mock postgres queries",
   "main": "code/server.js",
   "scripts": {
+    "lint": "eslint code",
+    "start": "node code/server.js",
     "test": "tape 'code/**/*.tape.js'",
     "coverage": "istanbul cover tape 'code/**/*.tape.js'"
   },
@@ -26,7 +28,7 @@
   },
   "homepage": "https://github.com/focusaurus/mock-pg-with-testdouble#readme",
   "dependencies": {
-    "bluebird": "3.3.5",
+    "bluebird": "2.10.2",
     "express": "4.13.4",
     "joi": "8.1.0",
     "lodash": "4.12.0",

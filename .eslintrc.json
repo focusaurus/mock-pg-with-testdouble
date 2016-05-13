@@ -13,6 +13,7 @@
     "func-style": ["error", "declaration"],
     "max-nested-callbacks": ["error", 4],
     "no-else-return": "error",
+    "no-console": "off",
     "no-eq-null": "error",
     "no-nested-ternary": "error",
     "no-sync": "warn",
