@@ -1,17 +1,12 @@
 'use strict'
 
 const joi = require('joi')
-const _ = require('lodash')
 const pg = require('pg')
-
-function summarizeErrors (error, summary) {
-  const parts = [summary || 'Invalid Data Provided']
-  const paths = _.map(error.details, 'message')
-  return parts.concat(paths).join('.\n')
-}
 
 const joiPort = joi.number().integer().min(1024).max(65535)
 
+// The keys below are the supported environment variables
+// for this application and expected format
 const schema = joi.object().keys({
   // http://www.postgresql.org/docs/9.3/static/libpq-envars.html
   PGDATABASE: joi.string().default('dev_mock_pg_with_testdouble'),
@@ -25,8 +20,11 @@ const schema = joi.object().keys({
 
 const result = joi.validate(process.env, schema, {stripUnknown: true})
 
+/* istanbul ignore if */
 if (result.error) {
-  exports._error = summarizeErrors(result.error, 'Invalid configuration')
+  exports._error = 'Invalid configuration:\n' + result.error.details
+    .map((error) => error.message)
+    .join('.\n')
 } else {
   // export each configuration key from this commonjs module
   Object.assign(exports, result.value)

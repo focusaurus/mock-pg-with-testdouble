@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 'use strict'
 
 const main = require.main === module
@@ -6,6 +7,7 @@ const express = require('express')
 const pg = require('./pg')
 
 // if starting the real server and the config isn't valid, exit right away
+/* istanbul ignore if */
 if (main && config._error) {
   console.error(config._error)
   process.exit(10)
@@ -28,6 +30,7 @@ app.use((error, req, res, next) => {
   res.send(error.message)
 })
 
+/* istanbul ignore if */
 if (main) {
   const server = app.listen(config.PORT, () => {
     console.log('http://localhost:', server.address().port)

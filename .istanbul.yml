@@ -1,0 +1,4 @@
+instrumentation:
+  excludes: ['code/test-utils.js', '*.tape.js']
+reporting:
+  dir: ./build/coverage
