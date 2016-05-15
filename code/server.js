@@ -8,7 +8,7 @@ const app = express()
 
 app.get('/users', (req, res, next) => {
   const score = req.query.score
-  const selectUsers = pg.SQL`SELECT * FROM users WHERE score >= ${score}`
+  const selectUsers = pg.sql`SELECT * FROM users WHERE score >= ${score}`
   pg.query(selectUsers)
   .then((users) => {
     res.send(users)

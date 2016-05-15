@@ -16,8 +16,9 @@ const schema = joi.object().keys({
   // http://www.postgresql.org/docs/9.3/static/libpq-envars.html
   PGDATABASE: joi.string().default('dev_mock_pg_with_testdouble'),
   PGHOST: joi.string().hostname().default(pg.defaults.host),
-  PGPASSWORD: joi.string(),
+  PGPASSWORD: joi.string().default(pg.defaults.password),
   PGPORT: joiPort.default(pg.defaults.port),
+  // PGUSER defaults to $USER which I think is useless
   PGUSER: joi.string().default('postgres'),
   PORT: joiPort.default(3000)
 })

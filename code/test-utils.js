@@ -16,17 +16,15 @@ const isQuery = td.matchers.create({
     // check if the SQL matches
     const sqlMatcher = matcherArgs[0]
     let sqlMatches = false
-    switch (typeof sqlMatcher) {
-      case 'string':
-        if (actual.sql.includes(sqlMatcher)) {
-          sqlMatches = true
-        }
-        break
-      case 'object':
-        if (typeof sqlMatcher.test === 'function' && sqlMatcher.test(actual.sql)) {
-          sqlMatches = true
-        }
-        break
+    if (typeof sqlMatcher === 'string') {
+      // String just does a simple case-sensitive substring "includes" check
+      if (actual.sql.includes(sqlMatcher)) {
+        sqlMatches = true
+      }
+    }
+    if (sqlMatcher instanceof RegExp) {
+      // do a regular expression test
+      sqlMatches = sqlMatcher.test(actual.sql)
     }
     if (!sqlMatches) {
       return false
@@ -38,6 +36,10 @@ const isQuery = td.matchers.create({
   }
 })
 
+// The pattern in tests is to set up a simulated failure before
+// the code being tested has a chance to attach rejection handlers.
+// Thus we need to suppressUnhandledRejections to avoid bluebird
+// printing spurious warnings
 function reject (error) {
   const blue = Bluebird.reject(error)
   blue.suppressUnhandledRejections()

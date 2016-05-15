@@ -11,4 +11,4 @@ pg.defaults.port = config.PGPORT
 pg.defaults.user = config.PGUSER
 
 exports.query = require('pg-query-bluebird')
-exports.SQL = require('sql-template-strings')
+exports.sql = require('sql-template-strings')
