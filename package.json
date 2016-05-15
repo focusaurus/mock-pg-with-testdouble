@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/focusaurus/mock-pg-with-testdouble#readme",
   "dependencies": {
-    "bluebird": "2.10.2",
+    "bluebird": "3.3.5",
     "express": "4.13.4",
     "joi": "8.1.0",
     "lodash": "4.12.0",

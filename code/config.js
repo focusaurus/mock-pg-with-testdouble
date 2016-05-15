@@ -14,7 +14,7 @@ const joiPort = joi.number().integer().min(1024).max(65535)
 
 const schema = joi.object().keys({
   // http://www.postgresql.org/docs/9.3/static/libpq-envars.html
-  PGDATABASE: joi.string().default('dev-mock-pg-with-testdouble'),
+  PGDATABASE: joi.string().default('dev_mock_pg_with_testdouble'),
   PGHOST: joi.string().hostname().default(pg.defaults.host),
   PGPASSWORD: joi.string(),
   PGPORT: joiPort.default(pg.defaults.port),
