@@ -25,15 +25,9 @@ const schema = joi.object().keys({
 
 const result = joi.validate(process.env, schema, {stripUnknown: true})
 
-// export each configuration key from this commonjs module
-Object.assign(exports, result.value)
-delete exports.error // except the error
-
-function validate () {
-  if (result.error) {
-    console.error(summarizeErrors(result.error, 'Invalid configuration'))
-    process.exit(10)
-  }
+if (result.error) {
+  exports._error = summarizeErrors(result.error, 'Invalid configuration')
+} else {
+  // export each configuration key from this commonjs module
+  Object.assign(exports, result.value)
 }
-
-exports.validate = validate
