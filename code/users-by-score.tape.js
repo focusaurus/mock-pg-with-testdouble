@@ -1,18 +1,20 @@
 'use strict'
 
 const Bluebird = require('bluebird')
-const pg = require('./pg')
 const supertest = require('supertest')
 const td = require('testdouble')
 const test = require('tape-catch')
 const utils = require('./test-utils')
-
+const User = require('./user-model')
 const request = supertest(require('./server'))
 
+function setupMocks () {
+  td.replace(User, 'findAll')
+  return td.when(User.findAll({where: {score: {$gt: '1'}}}))
+}
+
 test('users by score: no results', (tape) => {
-  td.replace(pg, 'query')
-  td.when(pg.query(utils.isQuery(/\sfrom\s+users/im, ['1'])))
-    .thenReturn(Bluebird.resolve([]))
+  setupMocks().thenReturn(Bluebird.resolve([]))
   request
     .get('/users')
     .query({score: 1})
@@ -26,9 +28,7 @@ test('users by score: no results', (tape) => {
 
 test('users by score: DB error', (tape) => {
   const down = new Error('DB is down')
-  td.replace(pg, 'query')
-  td.when(pg.query(utils.isQuery(/\sfrom\s+users/im, ['1'])))
-    .thenReturn(utils.reject(down))
+  setupMocks().thenReturn(utils.reject(down))
   request
     .get('/users')
     .query({score: 1})
@@ -42,12 +42,10 @@ test('users by score: DB error', (tape) => {
 
 test('users by score: happy path', (tape) => {
   const users = [
-    {name: 'tj', score: 545},
-    {name: 'substack', score: 724}
+    {id: 1, name: 'tj', score: 545},
+    {id: 2, name: 'substack', score: 724}
   ]
-  td.replace(pg, 'query')
-  td.when(pg.query(utils.isQuery(/\sfrom\s+users/im, ['1'])))
-    .thenReturn(Bluebird.resolve(users))
+  setupMocks().thenReturn(Bluebird.resolve(users))
   request
     .get('/users')
     .query({score: 1})

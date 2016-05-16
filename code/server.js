@@ -4,7 +4,7 @@
 const main = require.main === module
 const config = require('./config')
 const express = require('express')
-const pg = require('./pg')
+const User = require('./user-model')
 
 // if starting the real server and the config isn't valid, exit right away
 /* istanbul ignore if */
@@ -17,8 +17,7 @@ const app = express()
 
 app.get('/users', (req, res, next) => {
   const score = req.query.score
-  const selectUsers = pg.sql`SELECT * FROM users WHERE score >= ${score}`
-  pg.query(selectUsers)
+  User.findAll({where: {score: {$gt: score}}})
     .then((users) => res.send(users))
     .catch(next)
 })

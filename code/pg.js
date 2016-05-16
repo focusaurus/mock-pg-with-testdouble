@@ -1,14 +1,19 @@
 'use strict'
 
 const config = require('./config')
-const pg = require('pg')
+const Sequelize = require('sequelize')
 
-// set up pg defaults
-pg.defaults.database = config.PGDATABASE
-pg.defaults.host = config.PGHOST
-pg.defaults.password = config.PGPASSWORD
-pg.defaults.port = config.PGPORT
-pg.defaults.user = config.PGUSER
+const sequelizeOptions = {
+  host: config.PGHOST,
+  dialect: 'postgres',
+  define: {
+    timestamps: false
+  }
+}
 
-exports.query = require('pg-query-bluebird')
-exports.sql = require('sql-template-strings')
+exports.sequelize = new Sequelize(
+  config.PGDATABASE,
+  config.PGUSER,
+  config.PGPASSWORD,
+  sequelizeOptions
+)
