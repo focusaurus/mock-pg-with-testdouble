@@ -4,7 +4,6 @@ const Bluebird = require('bluebird')
 const supertest = require('supertest')
 const td = require('testdouble')
 const test = require('tape-catch')
-const utils = require('./test-utils')
 const User = require('./user-model')
 const request = supertest(require('./server'))
 
@@ -28,7 +27,7 @@ test('users by score: no results', (tape) => {
 
 test('users by score: DB error', (tape) => {
   const down = new Error('DB is down')
-  setupMocks().thenReturn(utils.reject(down))
+  setupMocks().thenDo(() => Bluebird.reject(down))
   request
     .get('/users')
     .query({score: 1})
