@@ -1,5 +1,6 @@
 'use strict'
 
+const Bluebird = require('bluebird')
 const pg = require('./pg')
 const supertest = require('supertest')
 const td = require('testdouble')
@@ -11,7 +12,7 @@ const request = supertest(require('./server'))
 test('users by score: no results', (tape) => {
   td.replace(pg, 'query')
   td.when(pg.query(utils.isQuery(/\sfrom\s+users/im, ['1'])))
-    .thenReturn(Promise.resolve([]))
+    .thenReturn(Bluebird.resolve([]))
   request
     .get('/users')
     .query({score: 1})
@@ -46,7 +47,7 @@ test('users by score: happy path', (tape) => {
   ]
   td.replace(pg, 'query')
   td.when(pg.query(utils.isQuery(/\sfrom\s+users/im, ['1'])))
-    .thenReturn(Promise.resolve(users))
+    .thenReturn(Bluebird.resolve(users))
   request
     .get('/users')
     .query({score: 1})

@@ -19,13 +19,12 @@ app.get('/users', (req, res, next) => {
   const score = req.query.score
   const selectUsers = pg.sql`SELECT * FROM users WHERE score >= ${score}`
   pg.query(selectUsers)
-    .then((users) => {
-      res.send(users)
-    })
+    .then((users) => res.send(users))
     .catch(next)
 })
 
 app.use((error, req, res, next) => {
+  // statusCode works well with the httperrors module, which I like
   res.status(error.statusCode || 500)
   res.send(error.message)
 })
